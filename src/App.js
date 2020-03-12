@@ -3,16 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 
 import Game from './Game';
+import Score from './Score';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      numQuestions: 0,
-      numCorrect: 0
-    };
-  }
-  handleAnswer(guessIsCorrect) {
+  state = {
+    numQuestions: 0,
+    numCorrect: 0
+  };
+  handleAnswer = guessIsCorrect => {
     if (guessIsCorrect)
       this.setState(currentState => ({
         numCorrect: currentState.numCorrect + 1
@@ -31,9 +29,7 @@ class App extends Component {
         <div className="game">
           <h2>Mental Math</h2>
           <Game handleAnswer={this.handleAnswer} />
-          <p className="text">
-            Your Score: {this.numCorrect}/{this.numQuestions}
-          </p>
+          <Score numCorrect={this.state.numCorrect} numQuestions={this.state.numQuestions} />
         </div>
       </div>
     );
