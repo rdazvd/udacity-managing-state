@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const value1 = Math.floor(Math.random() * 100);
-const value2 = Math.floor(Math.random() * 100);
-const value3 = Math.floor(Math.random() * 100);
-const proposedAnswer = Math.floor(Math.random() * 3) + value1 + value2 + value3;
+import Game from './Game';
 
 class App extends Component {
   constructor(props) {
@@ -33,13 +30,9 @@ class App extends Component {
         </header>
         <div className="game">
           <h2>Mental Math</h2>
-          <div className="equation">
-            <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
-          </div>
-          <button>True</button>
-          <button>False</button>
+          <Game handleAnswer={this.handleAnswer} />
           <p className="text">
-            Your Score: {numCorrect}/{numQuestions}
+            Your Score: {this.numCorrect}/{this.numQuestions}
           </p>
         </div>
       </div>

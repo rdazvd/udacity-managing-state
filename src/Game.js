@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-class Game Extends Component {
+class Game extends Component {
   constructor(props) {
     super(props);
-    this.initializeValues = this.makeNewQuestion();
+    const initializeValues = this.getNewValues();
     this.state = {
       valueX: initializeValues[0],
       valueY: initializeValues[1],
@@ -15,7 +15,7 @@ class Game Extends Component {
     const valueX = Math.floor(Math.random() * 100);
     const valueY = Math.floor(Math.random() * 100);
     const valueZ = Math.floor(Math.random() * 100);
-    const proposedAnswer = Math.floor(Math.random() * 3) + (value1 + value2 + value3);
+    const proposedAnswer = Math.floor(Math.random() * 3) + (valueX + valueY + valueZ);
     return [valueX, valueY, valueZ, proposedAnswer];
   }
   setNewValues = newValuesArray =>
@@ -29,6 +29,7 @@ class Game Extends Component {
     const newValues = this.getNewValues();
     this.setNewValues(newValues);
     const answerWasCorrect = this.evaluateAnswer(event.target.name);
+    this.props.handleAnswer(answerWasCorrect);
   }
   evaluateAnswer(givenAnswer) {
     const { valueX, valueY, valueZ, proposedAnswer } = this.state;
@@ -38,4 +39,23 @@ class Game Extends Component {
       (correctAnswer === proposedAnswer && givenAnswer === 'true') ||
       (correctAnswer !== proposedAnswer && givenAnswer === 'false')
     );
+  }
+  render() {
+    const { valueX, valueY, valueZ, proposedAnswer } = this.state;
+    return (
+      <div>
+        <div className="equation">
+          <p className="text">{`${valueX} + ${valueY} + ${valueZ} = ${proposedAnswer}`}</p>
+        </div>
+        <button onClick={this.handleAnswer} name="true">
+          True
+        </button>
+        <button onClick={this.handleAnswer} name="false">
+          False
+        </button>
+      </div>
+    );
+  }
 }
+
+export default Game;
